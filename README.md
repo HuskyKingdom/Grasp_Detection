@@ -1,27 +1,26 @@
 
 
-<!-- PROJECT LOGO -->
 <br />
 <div align="center" id="readme-top">
   
  <br />
 
-  <h3 align="center">Grasps Detection</h3>
+  <h1 align="center">Grasps Detection</h1>
 
   <p align="center" >
   Distributed under the MIT License.
 
-   This assignment includes several attempts to use deep learning techniques to train the neural network to learn a grasp detection, each of the grasp detection value consisting of five elements, they are : ( x ; y ; rotation angle ; opening ; jaw size ). The structure of this report file is divided into the following seven parts:</br>
-1. Grasp Detection using CNN + RGB image</br>
+This assignment includes several attempts to use deep learning techniques to train the neural network to learn a grasp detection, each of the grasp detection value consisting of five elements, they are : ( x ; y ; rotation angle ; opening ; jaw size ). The structure of this report file is divided into the following seven parts:</br>1. Grasp Detection using CNN + RGB image</br>
 2. Evaluations</br>
 3. Grasp Detection using CNN + RGB and Depth Image</br>
 4. Grasp Detection in the Wild</br>
 5. User Instructions</br>
 6. References/Related Works</br>
-    <br />
-    <a href="https://yuhang.topsoftint.com">Contact me at: <strong>yuhang@topsoftint.com</strong></a>
 
-    <a href="https://yuhang.topsoftint.com"><strong>View my full bio.</strong></a>
+<br />
+<a href="https://yuhang.topsoftint.com">Contact me at: <strong>yuhang@topsoftint.com</strong></a>
+
+<a href="https://yuhang.topsoftint.com"><strong>View my full bio.</strong></a>
     <br />
     <br />
   </p>

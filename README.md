@@ -4,7 +4,8 @@
 <div align="center" id="readme-top">
   
  <br />
-
+<img src="https://raw.githubusercontent.com/HuskyKingdom/Grasp_Detection/main/imgs/2.png" width="250" height="400"></br>
+</br>
   <h1 align="center">Grasps Detection</h1>
 
   <p align="center" >

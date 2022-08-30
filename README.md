@@ -46,52 +46,63 @@
 <p id="1"></p>
 
 Two architectures were used to perform the grasp detection, one of them are being tested and used in the main code for the later sections, the other one, however, due to its worse performance is not used in later sections, but instead its code was provided individually.
+
 Please refer to the user instructions section for more information about the file structure. The following content of this section will explain each of those architectures and illustrate their training loss performances.
 
 1. Direct Grasp Detection with and without batch normalization
 
 This is the version that tested stable and was later used in other sections.
+
 It takes an RGB image tensor of shape (N*3*1024*1024) as input and returns a single grasp detection output array of 5 elements. For each image, it`s ground truth is selected by the one with the highest Jaccard Index value of the current prediction. The architecture of the network is as in below:
 
 <img src="https://raw.githubusercontent.com/HuskyKingdom/Grasp_Detection/main/imgs/1.png">
 
 This architecture is referenced from Joseph Redmon and Anelia Angelova`s paer[0].
-This architecture is later improved by us by adding, for each convolutional layers, a batch normalization.
+This architecture is later improved by adding, for each convolutional layers, a batch normalization.
 Please see the following figure of its performance of loss function values over episode, note that each episode takes a batch of 5 images as input.
 
-<img src="https://raw.githubusercontent.com/HuskyKingdom/Grasp_Detection/main/imgs/2.png">
+<img src="https://raw.githubusercontent.com/HuskyKingdom/Grasp_Detection/main/imgs/2.png" width="250" height="400">
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 2. Multi-Grasp Detection
 
 This part of the code is *NOT* included in the main code file, instead it was provided individually in an seperate file, please refer to the user instruction section for more details about this.
+
 Please also note that this Multi-Grasp Detection is an implementation of the Multi-Grasp Detection method proposed by Joseph Redmon and Anelia Angelova`s paer[0], because of that, the networks architecture remains the same as Direct Grasp Detection.
+
 The network in this part takes the input tensor of shape (64*3*128*128), where it is dividing the RGB image into a grid of 8*8 cells, each cell has shape (128*128*3), since
   
 the original image has shape (1024*1024*3).
 For each of the cell, the neural network produces 6 elements output: ( heatmap; x ;
 y ; rotation angle ; opening ; jaw size ), where the heatmap is a probability of a single region contains a grasp.
 
-<img src="https://raw.githubusercontent.com/HuskyKingdom/Grasp_Detection/main/imgs/3.png">
+<img src="https://raw.githubusercontent.com/HuskyKingdom/Grasp_Detection/main/imgs/3.png" width="300" height="300">
+
+Please refer to the following figure of its performance of loss function values over episode, note that each episode takes a batch of 1 image, but 64 cells as input.
+
+This implementation is not used in later analyzation since I have got some problem with its backpropagation, that is also the potential reason why the above graph is not welly converging.
 
 
-### Built With
 
-This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
+## Evaluations
+<p id="2"></p>
 
-* [![Next][Next.js]][Next-url]
-* [![React][React.js]][React-url]
-* [![Vue][Vue.js]][Vue-url]
-* [![Angular][Angular.io]][Angular-url]
-* [![Svelte][Svelte.dev]][Svelte-url]
-* [![Laravel][Laravel.com]][Laravel-url]
-* [![Bootstrap][Bootstrap.com]][Bootstrap-url]
-* [![JQuery][JQuery.com]][JQuery-url]
+The evaluation method I have used is Rectangle Metric, based on Jaccard Index, as mentioned in the lectures. Since we have multiple ground truths, therefore, for each prediction result, we iterate through all its ground truth values, if one of the ground truths values and the predicted value satisfies both the following conditions, then the predicted value is referred as correct:
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+1. The difference of the rotational angle prediction is no larger than 30 degrees.
+2. The Jaccard index (or IOU ratio) of two parallel rectangles is no larger than 0.25.
 
+Jaccard index (or IOU ratio) in our implementation is calculated as the Intersection area divided by Union area between the predicted rectangle and the ground truth rectangle, assuming no rotation is performed (parallel), as shown in below.
 
+$$
+J(A,B) = \frac{|A \cap B|}{|A \cup B|}
+$$
+
+By using the above method, we evaluated the results produced by the direct grasp detection with batch normalization and without over the testing data, both trained 500 episode. The direct grasp detection with batch normalization predicted 13 correct predictions over 19 images, achieves 73% accuracy, whereas the one without batch normalization produces only 8 correct predictions over 19 images and achieves 43% accuracy. This is because the later one converges far slower than the one with batch normalization, under the same number of training episode, furthermore, the batch normalization also helps the earlier one avoids gradient explosion / dilation in DNN.
+Please see the following visualized result produced by the direct grasp detection with batch normalization. Note that the rotation of the rectangle in degrees is not performed but instead marked in the result as negative stands for rotation anticlockwise about the rectangle center.
+
+<img src="https://raw.githubusercontent.com/HuskyKingdom/Grasp_Detection/main/imgs/4.png" width="300" height="300">
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -107,7 +118,8 @@ This is an example of how to list things you need to use the software and how to
   npm install npm@latest -g
   ```
 
-### Installation
+## Installation
+<p id="2"></p>
 
 _Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
 

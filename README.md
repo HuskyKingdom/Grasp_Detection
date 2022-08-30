@@ -25,6 +25,7 @@
 
 
 
+
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
@@ -52,9 +53,27 @@ Please refer to the user instructions section for more information about the fil
 This is the version that tested stable and was later used in other sections.
 It takes an RGB image tensor of shape (N*3*1024*1024) as input and returns a single grasp detection output array of 5 elements. For each image, it`s ground truth is selected by the one with the highest Jaccard Index value of the current prediction. The architecture of the network is as in below:
 
+<img src="https://raw.githubusercontent.com/HuskyKingdom/Grasp_Detection/main/imgs/1.png">
+
+This architecture is referenced from Joseph Redmon and Anelia Angelova`s paer[0].
+This architecture is later improved by us by adding, for each convolutional layers, a batch normalization.
+Please see the following figure of its performance of loss function values over episode, note that each episode takes a batch of 5 images as input.
+
+<img src="https://raw.githubusercontent.com/HuskyKingdom/Grasp_Detection/main/imgs/2.png">
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+2. Multi-Grasp Detection
+
+This part of the code is *NOT* included in the main code file, instead it was provided individually in an seperate file, please refer to the user instruction section for more details about this.
+Please also note that this Multi-Grasp Detection is an implementation of the Multi-Grasp Detection method proposed by Joseph Redmon and Anelia Angelova`s paer[0], because of that, the networks architecture remains the same as Direct Grasp Detection.
+The network in this part takes the input tensor of shape (64*3*128*128), where it is dividing the RGB image into a grid of 8*8 cells, each cell has shape (128*128*3), since
+  
+the original image has shape (1024*1024*3).
+For each of the cell, the neural network produces 6 elements output: ( heatmap; x ;
+y ; rotation angle ; opening ; jaw size ), where the heatmap is a probability of a single region contains a grasp.
+
+<img src="https://raw.githubusercontent.com/HuskyKingdom/Grasp_Detection/main/imgs/3.png">
 
 
 ### Built With

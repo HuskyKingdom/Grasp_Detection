@@ -19,9 +19,9 @@ This assignment includes several attempts to use deep learning techniques to tra
 6. References/Related Works</br>
 
 <br />
-<a href="https://yuhang.topsoftint.com">Contact me at: <strong>yuhang@topsoftint.com</strong></a>
+<a href="https://yuhang.topsoftint.com">Contact me at: <strong>me@yhscode.com</strong></a>
 
-<a href="https://yuhang.topsoftint.com"><strong>View my full bio.</strong></a>
+<a href="https://yhscode.com"><strong>View my full bio.</strong></a>
     <br />
     <br />
   </p>
